@@ -38,19 +38,17 @@ const FormLogin = () => {
   const submit = async (data: iLogin) => {
     const result = await login(data);
 
+    if (result===200) {
     console.log(result);
-
-    // if (result.status === 200) {
-    //console.log(result);
     toast.success("Login realizado.");
 
     setTimeout(function () {
       navigate("/homepage");
     }, 2000);
 
-    // } else {
-    //  toast.error("Ops! Algo deu errado.")
-    //}
+    } else {
+    toast.error("Ops! Algo deu errado.")
+    }
   };
 
   return (

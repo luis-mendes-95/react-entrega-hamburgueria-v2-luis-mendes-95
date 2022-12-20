@@ -50,19 +50,14 @@ const FormRegister = () => {
   const submit = async (data: iRegister) => {
     const result = await register_user(data);
 
-    console.log(result);
-
-    // if (result.status === 200) {
-    //console.log(result);
-    toast.success("Cadastro realizado.");
-
-    setTimeout(function() {
-        navigate("/")
+    if (result === 201) {
+      toast.success("Cadastro realizado.");
+      setTimeout(function () {
+        navigate("/");
       }, 2000);
-
-    // } else {
-    //  toast.error("Ops! Algo deu errado.")
-    //}
+    } else {
+      toast.error("Ops! Algo deu errado.");
+    }
   };
 
   return (

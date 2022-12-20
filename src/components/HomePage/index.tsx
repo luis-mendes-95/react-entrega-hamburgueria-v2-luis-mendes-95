@@ -1,13 +1,18 @@
 import React, { useState, useContext } from "react";
 import LogoTitle from "../LogoTitle";
-import { AuthContext } from "../../contexts/auth";
+import { UserContext } from "../../contexts/UserContext";
 import Cart from "../Cart";
+import Products from "../Products";
+import { CartContext } from "../../contexts/CartContext";
 
 const HomePage = () => {
-  const { logout } = useContext(AuthContext);
+  const { logout } = useContext(UserContext);
+  const { set_search } = useContext(CartContext);
 
   const [showModalSearch, setShowModalSearch] = useState(false);
   const [showModalCart, setShowModalCart] = useState(false);
+  const [inputSearch, setInputSearch] = useState("");
+ 
 
   return (
     <div>
@@ -27,9 +32,13 @@ const HomePage = () => {
         >
           search
         </button>
-        <button           onClick={() => {
+        <button
+          onClick={() => {
             setShowModalCart(!showModalCart);
-          }}>cart</button>
+          }}
+        >
+          cart
+        </button>
         <button onClick={logout}>logout</button>
       </header>
       {showModalSearch === true ? (
@@ -41,8 +50,22 @@ const HomePage = () => {
             marginTop: "15px",
           }}
         >
-          <input placeholder="Digite aqui sua pesquisa" type="text" />
-          <button type="submit">Procurar</button>
+          <input
+            placeholder="Digite aqui sua pesquisa"
+            type="text"
+            onChange={(e) => {
+              setInputSearch(e.target.value);
+            }}
+          />
+          <button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              set_search(inputSearch)
+            }}
+          >
+            Procurar
+          </button>
         </form>
       ) : null}
       {showModalCart === true ? <Cart /> : null}
@@ -54,19 +77,7 @@ const HomePage = () => {
           alignItems: "center",
         }}
       >
-        <ul style={{ width: "95%" }}>
-          <li style={{ width: "50%", backgroundColor: "gray", padding: "5px" }}>
-            <img
-              style={{ width: "100%" }}
-              src="https://blog.novasafra.com.br/wp-content/uploads/2022/04/Carnes-para-hamburguer-veja-as-6-melhores-que-voce-deve-experimentar-780x450.jpeg"
-              alt=""
-            />
-            <h2>Lanche delicious</h2>
-            <p>Delicious mesmo, até sem ketchup</p>
-            <p>R$ 2,50</p>
-            <button>Adicionar</button>
-          </li>
-        </ul>
+        <Products />
       </section>
     </div>
   );

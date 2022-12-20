@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { useEffect } from "react";
 
-export const AuthContext = createContext<iAuthProviderFunctions>(
+export const UserContext = createContext<iAuthProviderFunctions>(
   {} as iAuthProviderFunctions
 );
 
 interface iAuthProviderFunctions {
   authenticated: boolean;
   user: null | iLogin;
+  token: string | unknown
   register_user: (data: iRegisterUser) => number | unknown;
   login: (data: iLogin) => number | unknown;
   logout: () => void;
@@ -32,15 +33,24 @@ interface iRegisterUser {
 }
 
 export const AuthProvider = ({ children }: iAuthProviderProps) => {
+  
   const navigate = useNavigate();
 
   const [user, setUser] = useState<iLogin | null>(null);
+  const [token, setToken] = useState<string | unknown>(null);
 
   useEffect(()=>{
-    const loggedInUser = localStorage.getItem("@KenzieBurger")  
+    const loggedInUser = localStorage.getItem("@KenzieBurger")
+
   
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser))
+      const saved_token = localStorage.getItem("KenzieBurgerToken")  
+
+      if (saved_token) {
+        setToken(JSON.parse(saved_token))
+      }
+
       navigate("/homepage")
     }
   },[navigate])
@@ -69,14 +79,16 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const logout = () => {
     setUser(null);
+    setToken(null)
     localStorage.removeItem("@KenzieBurger")
     navigate("/");
   };
+
   return (
-    <AuthContext.Provider
-      value={{ authenticated: !!user, user, register_user, login, logout }}
+    <UserContext.Provider
+      value={{ authenticated: !!user, user, token, register_user, login, logout }}
     >
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 };

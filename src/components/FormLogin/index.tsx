@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/auth";
+import { UserContext } from "../../contexts/UserContext";
 
 const FormLogin = () => {
   interface iLogin {
@@ -17,7 +17,7 @@ const FormLogin = () => {
 
   const navigate = useNavigate();
 
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(UserContext);
 
   const loginSchema = yup.object().shape({
     email: yup
@@ -39,7 +39,6 @@ const FormLogin = () => {
     const result = await login(data);
 
     if (result===200) {
-    console.log(result);
     toast.success("Login realizado.");
 
     setTimeout(function () {

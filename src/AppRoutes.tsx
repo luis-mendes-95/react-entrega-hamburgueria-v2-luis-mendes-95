@@ -8,27 +8,25 @@ import {
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import { AuthProvider, AuthContext } from "./contexts/auth";
+import { AuthProvider, UserContext } from "./contexts/UserContext";
+import { CartProvider, CartContext } from "./contexts/CartContext";
 import { useContext } from "react";
-import React from "react"
+import React from "react";
 
 const AppRoutes = () => {
-
   interface iPrivateProps {
     children: React.ReactNode;
   }
 
-  const Private = ({children}:iPrivateProps) => {
-
-    const {authenticated} = useContext(AuthContext)
+  const Private = ({ children }: iPrivateProps) => {
+    const { authenticated } = useContext(UserContext);
 
     if (!authenticated) {
-        return <Navigate to="/"/>
+      return <Navigate to="/" />;
     }
 
-    return <>{children}</>
-
-}
+    return <>{children}</>;
+  };
 
   return (
     <Router>
@@ -36,7 +34,16 @@ const AppRoutes = () => {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/homepage" element={<Private><Home/></Private>}/>
+          <Route
+            path="/homepage"
+            element={
+              <Private>
+                <CartProvider>
+                  <Home />
+                </CartProvider>
+              </Private>
+            }
+          />
         </Routes>
       </AuthProvider>
     </Router>

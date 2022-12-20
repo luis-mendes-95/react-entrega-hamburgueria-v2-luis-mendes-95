@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       return response;
     } catch (error) {
       return error;
-    }
+    }/**/
   };
 
   const login = async (data: iLogin) => {

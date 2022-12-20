@@ -11,8 +11,8 @@ export const AuthContext = createContext<iAuthProviderFunctions>(
 interface iAuthProviderFunctions {
   authenticated: boolean;
   user: null | iLogin;
-  register_user: (data: iRegisterUser) => void;
-  login: (data: iLogin) => void;
+  register_user: (data: iRegisterUser) => number | unknown;
+  login: (data: iLogin) => number | unknown;
   logout: () => void;
 }
 
@@ -45,32 +45,26 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   },[navigate])
 
-  const register_user = async (data: iRegisterUser) => {
+  const register_user = async (data: iRegisterUser):Promise<number | unknown> => {
     try {
       const response = await api.post("users", data);
-      return response;
+      return response.status
     } catch (error) {
       return error;
     }/**/
   };
 
-  const login = async (data: iLogin) => {
-    console.log(data)
+  const login = async (data: iLogin):Promise<number | unknown> => {
     try {
       const response = await api.post("login", data);
-      console.log(response)
       setUser(response.data.user)
       localStorage.setItem("@KenzieBurger", JSON.stringify(response.data.user))
       localStorage.setItem("@KenzieBurgerToken", JSON.stringify(response.data.accessToken))
-      return response;
+      return response.status
     } catch (error) {
       return error;
     }
-    /*setUser({
-      name: "string",
-      password: "string",
-    });
-    return data;*/
+
   };
 
   const logout = () => {

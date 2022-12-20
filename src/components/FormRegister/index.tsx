@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/auth";
+import { UserContext } from "../../contexts/UserContext";
 
 const FormRegister = () => {
   interface iRegister {
@@ -18,7 +18,7 @@ const FormRegister = () => {
 
   const navigate = useNavigate();
 
-  const { register_user } = useContext(AuthContext);
+  const { register_user } = useContext(UserContext);
 
   const loginSchema = yup.object().shape({
     email: yup

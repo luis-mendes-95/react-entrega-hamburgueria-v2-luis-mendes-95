@@ -1,4 +1,3 @@
-import React from "react";
 import * as main from "../../styles/main";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -63,45 +62,93 @@ const FormRegister = () => {
   return (
     <>
       <main.Form_general onSubmit={handleSubmit(submit)} noValidate>
-        <div style={{ display: "flex" }}>
-          <h2>Cadastro</h2>
-          <button
+        <main.Div_title_and_button>
+          <main.H2_title>Cadastro</main.H2_title>
+          <main.Button_return
             onClick={() => {
               navigate("/");
             }}
           >
             Retornar para o login
-          </button>
-        </div>
+          </main.Button_return>
+        </main.Div_title_and_button>
 
-        <label>E-mail</label>
-        <input
+        <main.Label_general
+          style={{
+            alignSelf: "flex-start",
+            fontSize: "10pt",
+            margin: "10px 0 0 0",
+          }}
+        >
+          E-mail
+        </main.Label_general>
+        <main.Input_general
           placeholder="Digite aqui seu e-mail"
           type="text"
           {...register("email")}
+          style={{
+            width: "100%",
+            height: "35px",
+            border: "1pt solid gray",
+            borderRadius: "4px",
+          }}
         />
         {errors.email?.message && (
-          <p aria-label="error">{errors.email.message}</p>
+          <main.P_aria_label aria-label="error">
+            {errors.email.message}
+          </main.P_aria_label>
         )}
-        <label>Senha</label>
-        <input
+        <main.Label_general
+          style={{
+            alignSelf: "flex-start",
+            fontSize: "10pt",
+            margin: "10px 0 0 0",
+          }}
+        >
+          Senha
+        </main.Label_general>
+        <main.Input_general
           placeholder="Digite aqui sua senha"
           type="password"
           {...register("password")}
+          style={{
+            width: "100%",
+            height: "35px",
+            border: "1pt solid gray",
+            borderRadius: "4px",
+          }}
         />
         {errors.password?.message && (
-          <p aria-label="error">{errors.password.message}</p>
+          <main.P_aria_label aria-label="error">
+            {errors.password.message}
+          </main.P_aria_label>
         )}
-        <label>Nome</label>
-        <input
+        <main.Label_general
+          style={{
+            alignSelf: "flex-start",
+            fontSize: "10pt",
+            margin: "10px 0 0 0",
+          }}
+        >
+          Nome
+        </main.Label_general>
+        <main.Input_general
           placeholder="Digite aqui seu nome"
           type="text"
           {...register("name")}
+          style={{
+            width: "100%",
+            height: "35px",
+            border: "1pt solid gray",
+            borderRadius: "4px",
+          }}
         />
         {errors.name?.message && (
-          <p aria-label="error">{errors.name.message}</p>
+          <main.P_aria_label aria-label="error">
+            {errors.name.message}
+          </main.P_aria_label>
         )}
-        <button type="submit">Cadastrar</button>
+        <main.Button_submit type="submit">Cadastrar</main.Button_submit>
       </main.Form_general>
       <ToastContainer />
     </>

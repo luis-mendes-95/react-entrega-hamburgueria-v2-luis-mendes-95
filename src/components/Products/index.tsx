@@ -1,26 +1,26 @@
-import React, { useEffect } from "react";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 
 const Products = () => {
-  const { products, get_products, searchIt, add_product } = useContext(CartContext);
+  const { products, searchIt, add_product } = useContext(CartContext);
 
   return (
     <ul
       style={{
-        width: "95%",
+        width: "95vw",
         display: "flex",
         flexDirection: "row",
         gap: "20px",
         listStyle: "none",
         overflow: "scroll",
+        padding: "0 0 15px 0"
       }}
     >
       {products?.map((product) =>
         product.name === searchIt ? (
           <li
             key={product.id}
-            style={{ backgroundColor: "gray", padding: "5px" }}
+            style={{ backgroundColor: "white", padding: "5px", border:"1pt solid green" }}
           >
             <img style={{ width: "100%" }} src={product.img} alt="" />
             <h2>{product.name}</h2>
@@ -40,13 +40,13 @@ const Products = () => {
         searchIt === "" ? (
           <li
             key={product.id}
-            style={{ backgroundColor: "gray", padding: "5px" }}
+            style={{ backgroundColor: "white", padding: "5px", border:"1pt solid green", borderRadius:"8px", display:"flex", flexDirection:"column", justifyContent:"space-between" }}
           >
-            <img style={{ width: "100%" }} src={product.img} alt="" />
-            <h2>{product.name}</h2>
-            <p>{product.category}</p>
-            <p>{product.price}</p>
+            <img style={{ width: "100%"}} src={product.img} alt="" />
+            <h2 style={{width: "150px", fontSize:"12pt", marginBottom:"10px"}}>{product.name}</h2>
+            <p style={{fontSize:"8pt", marginBottom:"10px", color: "gray"}}>{product.category}</p>
             <button
+            style={{width: "50%", height: "40px", backgroundColor: "green", border:"none", color:"white", borderRadius:"8px", margin:"10px 0 0 0"}}
               onClick={() => {
                 add_product(product);
               }}

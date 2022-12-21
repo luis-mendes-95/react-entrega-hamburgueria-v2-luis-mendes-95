@@ -1,16 +1,15 @@
-import React from 'react'
-import FormLogin from '../../components/FormLogin'
-import LogoTitle from '../../components/LogoTitle'
-import { ToastContainer } from 'react-toastify'
+import FormLogin from "../../components/FormLogin";
+import LogoTitle from "../../components/LogoTitle";
+import { ToastContainer } from "react-toastify";
 
 const LoginPage = () => {
   return (
-    <>
-    <LogoTitle/>
-    <FormLogin/>
-    <ToastContainer/>
-    </>
-  )
-}
+    <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
+      <LogoTitle />
+      <FormLogin />
+      <ToastContainer />
+    </div>
+  );
+};
 
-export default LoginPage
+export default LoginPage;

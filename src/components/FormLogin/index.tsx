@@ -1,10 +1,9 @@
-import React from "react";
 import * as main from "../../styles/main";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
@@ -38,50 +37,59 @@ const FormLogin = () => {
   const submit = async (data: iLogin) => {
     const result = await login(data);
 
-    if (result===200) {
-    toast.success("Login realizado.");
+    if (result === 200) {
+      toast.success("Login realizado.");
 
-    setTimeout(function () {
-      navigate("/homepage");
-    }, 2000);
-
+      setTimeout(function () {
+        navigate("/homepage");
+      }, 2000);
     } else {
-    toast.error("Ops! Algo deu errado.")
+      toast.error("Ops! Algo deu errado.");
     }
   };
 
   return (
     <main.Form_general onSubmit={handleSubmit(submit)} noValidate>
-      <h2>Login</h2>
-      <label>Nome</label>
-      <input
+      <main.H2_login>Login</main.H2_login>
+      <main.Label_general>Nome</main.Label_general>
+      <main.Input_general
         placeholder="Digite aqui seu e-mail"
         type="email"
         {...register("email")}
       />
       {errors.email?.message && (
-        <p aria-label="error">{errors.email.message}</p>
+        <main.P_aria_label aria-label="error">
+          {errors.email.message}
+        </main.P_aria_label>
       )}
-      <label>Senha</label>
-      <input
+      <main.Label_general>Senha</main.Label_general>
+      <main.Input_general
         placeholder="Digite aqui sua senha"
         type="password"
         {...register("password")}
+        style={{
+          width: "100%",
+          height: "35px",
+          border: "1pt solid gray",
+          borderRadius: "4px",
+        }}
       />
       {errors.password?.message && (
-        <p aria-label="error">{errors.password.message}</p>
+        <main.P_aria_label aria-label="error">
+          {errors.password.message}
+        </main.P_aria_label>
       )}
-      <button type="submit">Logar</button>
-      <span style={{ fontSize: "10px" }}>
+      <main.Button_submit type="submit">Logar</main.Button_submit>
+      <main.Span_register>
         Crie sua conta para saborear muitas delícias e matar sua fome
-      </span>
-      <button
+      </main.Span_register>
+      <main.Button_register
         onClick={() => {
           navigate("/register");
         }}
       >
         Cadastrar
-      </button>
+      </main.Button_register>
     </main.Form_general>
   );
 };

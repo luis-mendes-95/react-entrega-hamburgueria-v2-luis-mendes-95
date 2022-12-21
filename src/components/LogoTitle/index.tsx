@@ -1,4 +1,3 @@
-import React from "react";
 import * as header from "../../styles/header";
 
 const LogoTitle = () => {

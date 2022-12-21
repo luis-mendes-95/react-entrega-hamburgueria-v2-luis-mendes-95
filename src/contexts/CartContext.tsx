@@ -2,8 +2,6 @@ import React, { createContext } from "react";
 import { useState } from "react";
 import api from "../services/api";
 import { useEffect } from "react";
-import { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
 import { toast } from "react-toastify";
 
 export const CartContext = createContext<iCartProviderFunctions>(
@@ -28,6 +26,7 @@ interface iCartProviderFunctions {
   edit_product_sum: (data: iCart) => iCart | unknown;
   edit_product_sub: (data: iCart) => iCart | unknown;
   delete_product: (data: iCart) => iCart | unknown;
+  empty_card: () => boolean | unknown;
   set_search: (data: string | null) => string | null;
   set_modal: () => boolean | unknown;
   showModalCart: boolean;
@@ -67,8 +66,6 @@ export const CartProvider = ({ children }: iCartProviderProps) => {
     }
   };
 
-  const newProducts = products.map((product) => product);
-
   useEffect(() => {
     const saved_cart = localStorage.getItem("@KenzieBurgerCart");
 
@@ -93,10 +90,12 @@ export const CartProvider = ({ children }: iCartProviderProps) => {
 
     if (already_has === true) {
       data.qty += 1;
+      localStorage.setItem("@KenzieBurgerCart", JSON.stringify(cart));
       toast.success("+ 1 unidade adicionada!");
     } else {
       data.qty = 1;
       setCart([...cart, data]);
+      localStorage.setItem("@KenzieBurgerCart", JSON.stringify(cart));
       toast.success("Produto adicionado ao carrinho!");
     }
 
@@ -119,26 +118,38 @@ export const CartProvider = ({ children }: iCartProviderProps) => {
   };
 
   const edit_product_sub = async (data: iCart): Promise<number | unknown> => {
-    const new_cart = cart.map((item) => {
-      if (item.id === data.id) {
-        item.qty -= 1;
-        return item;
-      } else {
-        return item;
-      }
-    });
+    if (data.qty === 1) {
+      const new_cart = cart.filter((item) => item.id !== data.id);
+      setCart(new_cart);
+      localStorage.setItem("@KenzieBurgerCart", JSON.stringify(new_cart));
+    } else {
+      const new_cart = cart.map((item) => {
+        if (item.id === data.id) {
+          item.qty -= 1;
+          return item;
+        } else {
+          return item;
+        }
+      });
 
-    setCart(new_cart);
+      setCart(new_cart);
+      localStorage.setItem("@KenzieBurgerCart", JSON.stringify(new_cart));
 
-    return cart;
+      return cart;
+    }
   };
 
   const delete_product = async (data: iCart): Promise<number | unknown> => {
     const new_cart = cart.filter((item) => item.id !== data.id);
 
     setCart(new_cart);
-
+    localStorage.setItem("@KenzieBurgerCart", JSON.stringify(new_cart));
     return cart;
+  };
+
+  const empty_card = () => {
+    setCart([]);
+    localStorage.setItem("@KenzieBurgerCart", JSON.stringify(cart));
   };
 
   return (
@@ -152,6 +163,7 @@ export const CartProvider = ({ children }: iCartProviderProps) => {
         edit_product_sum,
         edit_product_sub,
         delete_product,
+        empty_card,
         set_search,
         set_modal,
         showModalCart,

@@ -4,13 +4,14 @@ import { UserContext } from "../../contexts/UserContext";
 import Cart from "../Cart";
 import Products from "../Products";
 import { CartContext } from "../../contexts/CartContext";
+import { ToastContainer } from "react-toastify";
 
 const HomePage = () => {
   const { logout } = useContext(UserContext);
-  const { set_search } = useContext(CartContext);
+  const { set_search, set_modal, showModalCart } = useContext(CartContext);
 
   const [showModalSearch, setShowModalSearch] = useState(false);
-  const [showModalCart, setShowModalCart] = useState(false);
+  //const [showModalCart, setShowModalCart] = useState(false); CHAMAR O USECONTEXT AGORA.
   const [inputSearch, setInputSearch] = useState("");
  
 
@@ -33,9 +34,7 @@ const HomePage = () => {
           search
         </button>
         <button
-          onClick={() => {
-            setShowModalCart(!showModalCart);
-          }}
+          onClick={set_modal}
         >
           cart
         </button>
@@ -79,6 +78,7 @@ const HomePage = () => {
       >
         <Products />
       </section>
+      <ToastContainer/>
     </div>
   );
 };

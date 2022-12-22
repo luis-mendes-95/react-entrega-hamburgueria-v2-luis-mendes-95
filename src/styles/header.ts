@@ -8,6 +8,9 @@ export const Div_for_title = styled.div`
   width: fit-content;
   align-self: flex-start;
   padding: 20px 0 20px 10px;
+  @media (min-width: 768px) {
+    align-self: center;
+  }
 `;
 
 export const P_title_1 = styled.p`

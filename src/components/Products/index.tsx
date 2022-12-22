@@ -1,62 +1,45 @@
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
+import * as main from "../../styles/main";
 
 const Products = () => {
   const { products, searchIt, add_product } = useContext(CartContext);
 
   return (
-    <ul
-      style={{
-        width: "95vw",
-        display: "flex",
-        flexDirection: "row",
-        gap: "20px",
-        listStyle: "none",
-        overflow: "scroll",
-        padding: "0 0 15px 0"
-      }}
-    >
+    <main.Ul_products>
       {products?.map((product) =>
         product.name === searchIt ? (
-          <li
-            key={product.id}
-            style={{ backgroundColor: "white", padding: "5px", border:"1pt solid green" }}
-          >
-            <img style={{ width: "100%" }} src={product.img} alt="" />
-            <h2>{product.name}</h2>
-            <p>{product.category}</p>
-            <p>{product.price}</p>
-            <button
+          <main.Li_product key={product.id}>
+            <main.Img_product src={product.img} alt={product.name} />
+            <main.H2_product_name>{product.name}</main.H2_product_name>
+            <main.P_category>{product.category}</main.P_category>
+            <main.Button_add_to_cart
               onClick={() => {
                 add_product(product);
               }}
             >
               Adicionar
-            </button>
-          </li>
+            </main.Button_add_to_cart>
+          </main.Li_product>
         ) : null
       )}
       {products?.map((product) =>
         searchIt === "" ? (
-          <li
-            key={product.id}
-            style={{ backgroundColor: "white", padding: "5px", border:"1pt solid green", borderRadius:"8px", display:"flex", flexDirection:"column", justifyContent:"space-between" }}
-          >
-            <img style={{ width: "100%"}} src={product.img} alt="" />
-            <h2 style={{width: "150px", fontSize:"12pt", marginBottom:"10px"}}>{product.name}</h2>
-            <p style={{fontSize:"8pt", marginBottom:"10px", color: "gray"}}>{product.category}</p>
-            <button
-            style={{width: "50%", height: "40px", backgroundColor: "green", border:"none", color:"white", borderRadius:"8px", margin:"10px 0 0 0"}}
+          <main.Li_product key={product.id}>
+            <main.Img_product src={product.img} alt={product.name} />
+            <main.H2_product_name>{product.name}</main.H2_product_name>
+            <main.P_category>{product.category}</main.P_category>
+            <main.Button_add_to_cart
               onClick={() => {
                 add_product(product);
               }}
             >
               Adicionar
-            </button>
-          </li>
+            </main.Button_add_to_cart>
+          </main.Li_product>
         ) : null
       )}
-    </ul>
+    </main.Ul_products>
   );
 };
 

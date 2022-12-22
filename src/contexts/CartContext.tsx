@@ -113,6 +113,7 @@ export const CartProvider = ({ children }: iCartProviderProps) => {
     });
 
     setCart(new_cart);
+    localStorage.setItem("@KenzieBurgerCart", JSON.stringify(new_cart));
 
     return cart;
   };

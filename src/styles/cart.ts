@@ -3,12 +3,14 @@ import styled from "styled-components";
 export const Div_background_cart = styled.div`
   background-color: #808080e3;
   width: 100vw;
-  position: absolute;
   background-color: #808080e3;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 0 0 10px 0;
+  top: 0;
+  height: 100vh;
+  position: absolute;
 `;
 
 export const Div_cart_window = styled.div`
@@ -17,13 +19,20 @@ export const Div_cart_window = styled.div`
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
-`;
+
+  @media (min-width: 768px) {
+    width: 30%;
+  }
+ `;
 
 export const Div_title_and_button = styled.div`
   background-color: green;
   display: flex;
   padding: 10px;
   justify-content: space-between;
+  cursor: pointer;
+
+
 `;
 
 export const H3_title = styled.h3`
@@ -67,15 +76,29 @@ export const P_item_category = styled.p``;
 
 export const Button_subtract_item = styled.p`
   color: red;
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    transform: scale(1.0)
+  }
 `;
 
 export const P_item_qty = styled.p`
   background-color: white;
   width: 75%;
+
+  @media (min-width: 768px) {
+    transform: scale(1.0)
+  }
 `;
 
 export const Button_sum_item = styled.p`
   color: red;
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    transform: scale(1.2)
+  }
 `;
 
 export const Div_empty_bag = styled.div``;
@@ -95,6 +118,9 @@ export const Div_item_name = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (min-width: 768px) {
+    transform: scale(1.5)
+  }
 `;
 
 export const Div_buttons_card = styled.div`
@@ -110,6 +136,7 @@ export const Button_delete_cart_item = styled.button`
   border: none;
   font-weight: bold;
   font-size: 15pt;
+  cursor: pointer;
 `;
 
 export const Div_total_and_empty = styled.div``;
@@ -139,4 +166,5 @@ export const Button_remove_all = styled.button`
   border-radius: 8px;
   font-weight: bold;
   color: gray;
+  cursor: pointer;
 `;

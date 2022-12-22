@@ -36,7 +36,39 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState<iLogin | null>(null);
-  const [token, setToken] = useState<string | unknown>(null);
+  const [token, setToken] = useState<string | unknown | null>(null);
+
+  /*useEffect(() => {
+    const saved_token = localStorage.getItem("@KenzieBurgerToken");
+
+    if (saved_token) {
+      setToken(JSON.parse(saved_token));
+
+      const check_login = async () => {
+        try {
+          const check = await api.get("products ", {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          });
+          localStorage.setItem("@KenzieBurgerStatus", JSON.stringify(check.status))
+          return check;
+        } catch (error) {
+          return error;
+        } 
+      }
+
+      check_login()
+
+      const check = localStorage.getItem("@KenzieBurgerStatus")
+
+      if (check) {
+        navigate("/homepage");
+        localStorage.removeItem("@KenzieBurgerStatus")
+      }       
+      
+    }
+  }, [navigate]);*/
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("@KenzieBurger");
@@ -48,7 +80,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       if (saved_token) {
         setToken(JSON.parse(saved_token));
       }
-
       navigate("/homepage");
     }
   }, [navigate]);
@@ -61,7 +92,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       return response.status;
     } catch (error) {
       return error;
-    } /**/
+    }
   };
 
   const login = async (data: iLogin): Promise<number | unknown> => {

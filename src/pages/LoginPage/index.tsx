@@ -1,14 +1,15 @@
 import FormLogin from "../../components/FormLogin";
 import LogoTitle from "../../components/LogoTitle";
 import { ToastContainer } from "react-toastify";
+import * as main from "../../styles/main"
 
 const LoginPage = () => {
   return (
-    <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
+    <main.Div_background_login >
       <LogoTitle />
       <FormLogin />
       <ToastContainer />
-    </div>
+    </main.Div_background_login>
   );
 };
 

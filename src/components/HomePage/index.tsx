@@ -4,61 +4,46 @@ import { UserContext } from "../../contexts/UserContext";
 import Cart from "../Cart";
 import Products from "../Products";
 import { CartContext } from "../../contexts/CartContext";
-import { ToastContainer } from "react-toastify";
+import * as main from "../../styles/main";
 
 const HomePage = () => {
   const { logout } = useContext(UserContext);
-  const { set_search, set_modal, showModalCart, cart } = useContext(CartContext);
+  const { set_search, set_modal, showModalCart, cart } =
+    useContext(CartContext);
 
-  const items_in_cart = cart.length
-
-  console.log(items_in_cart)
+  const items_in_cart = cart.length;
 
   const [showModalSearch, setShowModalSearch] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
 
   return (
-    <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "5px",
-          padding: "10px",
-          backgroundColor: "lightgray",
-          width: "100%"
-        }}
-      >
+    <main.Div_home_background>
+      <main.Header_home>
         <LogoTitle />
-        <button
-          onClick={() => {
-            setShowModalSearch(!showModalSearch);
-          }}
-        style={{border:"none", backgroundColor: "lightgray", fontWeight: "bold"}}>
-          🔍
-        </button>
-        <button onClick={set_modal} style={{border:"none", backgroundColor: "lightgray", fontWeight: "bold"}}>🛒{items_in_cart}</button>
-        <button onClick={logout} style={{border:"none", backgroundColor: "lightgray", fontWeight: "bold", fontSize:"14pt"}}>⍈</button>
-      </header>
+        <div style={{display: "flex", gap:"25px"}}>
+          <main.Button_search
+            onClick={() => {
+              setShowModalSearch(!showModalSearch);
+            }}
+          >
+            🔍
+          </main.Button_search>
+          <main.Button_cart onClick={set_modal}>
+            🛒{items_in_cart}
+          </main.Button_cart>
+          <main.Button_logout onClick={logout}>⍈</main.Button_logout>
+        </div>
+      </main.Header_home>
       {showModalSearch === true ? (
-        <form
-          noValidate
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "15px",
-            width:"90%"
-          }}
-        >
-          <input
+        <main.Form_search>
+          <main.Input_search
             placeholder="Digite aqui sua pesquisa"
             type="text"
             onChange={(e) => {
               setInputSearch(e.target.value);
             }}
-            style={{width: "75%", height:"35px", border: "1pt solid gray", borderRadius:"4px"}}
           />
-          <button
+          <main.Button_submit_search
             type="submit"
             onClick={(e) => {
               e.preventDefault();
@@ -66,21 +51,14 @@ const HomePage = () => {
             }}
           >
             Procurar
-          </button>
-        </form>
+          </main.Button_submit_search>
+        </main.Form_search>
       ) : null}
       {showModalCart === true ? <Cart /> : null}
-      <section
-        style={{
-          marginTop: "50px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <main.Section_products>
         <Products />
-      </section>
-    </div>
+      </main.Section_products>
+    </main.Div_home_background>
   );
 };
 
